@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} INSERT {% endblock %}</h1>
+    <h3>Insert user</h3>
+    <form method="post">
+      <p>
+        <input type="hidden" name="type" value="user">
+        <input type="text" name="username" placeholder="username">
+        <input type="text" name="firstname" placeholder="firstname">
+        <input type="text" name="lastname" placeholder="lastname">
+        <input type="text" name="dni" placeholder="dni">
+        <input type="text" name="email" placeholder="email">
+      </p>
+      <p>
+        <button type="submit">Enviar</button>
+      </p>
+    </form>
+    <h3>Insert song</h3>
+    <form method="post">
+      <p>
+        <input type="hidden" name="type" value="song">
+        <input type="text" name="song_name" placeholder="song name">
+        <input type="text" name="year" placeholder="year">
+        <input type="text" name="duration" placeholder="duration">
+      </p>
+      <p>
+        <button type="submit">Enviar</button>
+      </p>
+    </form>
+{% endblock %}
