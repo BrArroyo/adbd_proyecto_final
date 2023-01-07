@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div style="text-align: center;">
+      <h2>{% block title %} Actualizar el elemento que desee en la base de datos de ULL Music {% endblock %}</h2>
+    </div>
+    <div class="form_div">
+      <h3>Actualizar un usuario</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="user">
+          <input type="number" name="id_user" placeholder="ID del usuario" required>
+          <input type="text" name="firstname" placeholder="nombre" required>
+          <input type="text" name="lastname" placeholder="apellidos" required>
+          <input type="text" name="username" placeholder="nombre de usuario" required>
+          <br>
+          <br>
+          <input type="text" name="dni" placeholder="dni" required>
+          <input type="email" name="email" placeholder="correo electronico" required>
+        </p>
+        <p>
+          <button type="submit">Actualizar un usuario</button>
+        </p>
+      </form>
+    </div>
+    <div class="form_div">
+      <h3>Actualizar un autor músical</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="author">
+          <input type="number" name="id_author" placeholder="ID del autor" required>
+          <input type="text" name="name_author" placeholder="nombre del autor de la canción" required>
+          <input type="text" name="name_discography" placeholder="nombre de la discografia" required>
+        </p>
+        <p>
+          <button type="submit">Actualizar un autor músical</button>
+        </p>
+      </form>
+    </div>    
+    <div class="form_div">
+      <h3>Actualizar una canción</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="song">
+          <input type="number" name="id_song" placeholder="ID de la canción " required>
+          <input type="text" name="song_name" placeholder="nombre de la canción" required>
+          <input type="text" name="year" placeholder="año de salida" required>
+          <input type="time" name="duration" placeholder="duración" required>
+        </p>
+        <p>
+          <button type="submit">Actualizar una canción</button>
+        </p>
+      </form>
+    </div>
+    <div class="form_div">
+      <h3>Actualizar un técnico</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="technician">
+          <input type="number" name="id_technician" placeholder="ID del técnico" required>
+          <input type="text" name="firstname" placeholder="nombre" required>
+          <input type="text" name="lastname" placeholder="apellidos" required>
+          <input type="text" name="dni" placeholder="dni" required>
+        </p>
+        <p>
+          <button type="submit">Actualizar un técnico</button>
+        </p>
+      </form>
+    </div>
+    <div class="form_div">
+      <h3>Actualizar un problema</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="problem">
+          <input type="number" name="id_problem" placeholder="ID del problema" required>
+          <input type="text" name="name_problem" placeholder="nombre del problema" required>
+          <br>
+          <br>
+          <input type="text" name="description" placeholder="descripción del problema" required>
+          <br>
+          <br>
+          <input type="text" name="resolution" placeholder="resolución del problema" required>
+        </p>
+        <p>
+          <button type="submit">Actualizar un problema</button>
+        </p>
+      </form>
+    </div>
+    <div class="form_div">
+      <h3>Actualizar una lista de canciones</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="song_list">
+          <input type="number" name="id_list" placeholder="ID de la lista" required>
+          <input type="text" name="name_list" placeholder="nombre de la lista" required>
+          <br>
+          <br>
+          <input type="text" name="description" placeholder="descripción de la lista" required>          
+        </p>
+        <p>
+          <button type="submit">Actualizar una lista de canciones</button>
+        </p>
+      </form>
+    </div>
+    <div class="form_div">
+      <h3>Actualizar un albúm</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="album">
+          <input type="number" name="id_album" placeholder="ID del album" required>
+          <input type="text" name="name_album" placeholder="nombre del album" required>
+          <input type="text" name="id_author" placeholder="id del autor" required>
+          <input type="text" name="year" placeholder="año de salida" required>
+        </p>
+        <p>          
+          <button type="submit">Actualizar un albúm</button>
+        </p>
+      </form>
+    </div>
+    <div class="form_div">
+      <h3>Actualizar un género músical</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="gender">
+          <input type="number" name="id_gender" placeholder="ID del género músical" required>
+          <input type="text" name="name_gender" placeholder="nombre del género músical" required>
+        </p>
+        <p>
+          <button type="submit">Actualizar un género músical</button>
+        </p>
+      </form>
+    </div>
+    <div class="form_div">
+      <h3>Actualizar una incidencia</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="incidence">
+          <input type="number" name="id_incidence" placeholder="ID de la incidencia" required>
+          <input type="number" name="id_technician" placeholder="ID del técnico" required>
+          <input type="number" name="id_problem" placeholder="ID del problema" required>
+          <input type="number" name="id_user" placeholder="ID del usuario" required>
+          <br>
+          <br>
+          <input type="date" name="date_incidence" placeholder="fecha de la incidencia" required>
+          <input type="date" name="date_resolution" placeholder="fecha de la resolución" required>
+          <br>
+          <br>
+          <input type="text" name="resolution" placeholder="¿se resolvio el problema?" required>
+        </p>
+        <p>
+          <button type="submit">Actualizar una incidencia</button>
+        </p>
+      </form>
+    </div>
+    <div class="form_div">
+      <h3>Actualizar un comentario</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="comment">
+          <input type="number" name="id_comment" placeholder="ID del comentario" required>
+          <input type="number" name="id_user" placeholder="ID del usuario" required>
+          <input type="number" name="id_song" placeholder="ID de la canción" required>
+          <br>
+          <br>
+          <input type="text" name="text_comment" placeholder="texto del comentario" required>
+        </p>
+        <p>
+          <button type="submit">Actualizar un comentario</button>
+        </p>
+      </form>
+    </div>
+{% endblock %}

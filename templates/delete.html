@@ -1,5 +1,234 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{% block title %} DELETE {% endblock %}</h1>
+<div style="text-align: center;">
+  <h2>{% block title %} Elimine el elemento que desee en la base de datos de ULL Music mediante el ID{% endblock %}</h2>
+</div>
+<div class="form_div">
+  <h3>Eliminar un usuario</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="user">
+          <input type="number" name="id_user" placeholder="ID del usuario" required>
+        </p>
+        <p>
+          <button type="submit">Eliminar usuario</button>
+        </p>
+      </form>
+    </div>
+    <div class="form_div">
+      <h3>Eliminar las canciones que ha escuchado un usuario</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="user_song">
+          <input type="number" name="id_user" placeholder="ID del usuario" required>
+          <input type="number" name="id_song" placeholder="ID de la canción" required>
+        </p>
+        <p>
+          <button type="submit">Eliminar canciones escuchadas</button>
+        </p>
+      </form>
+    </div>
+    <div class="form_div">
+      <h3>Eliminar una lista de canciones</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="song_list">
+          <input type="number" name="id_list" placeholder="ID de la lista" required>
+        </p>
+        <p>
+          <button type="submit">Eliminar una lista de canciones</button>
+        </p>
+      </form>
+    </div>
+    <div class="form_div">
+      <h3>Eliminar una canción de una lista de canciones</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="song_list_song">
+          <input type="number" name="id_list" placeholder="ID de la lista" required>
+          <input type="number" name="id_song" placeholder="ID de la canción" required>
+        </p>
+        <p>
+          <button type="submit">Eliminar una canción de una lista de canciones</button>
+        </p>
+      </form>
+    </div>
+    <div class="form_div">
+      <h3>Eliminar un usuario de una lista de canciones</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="song_list_user">
+          <input type="number" name="id_list" placeholder="ID de la lista" required>
+          <input type="number" name="id_user" placeholder="ID del usuario" required>
+        </p>
+        <p>
+          <button type="submit">Eliminar un usuario de una lista de canciones</button>
+        </p>
+      </form>
+    </div>
+    <div class="form_div">
+      <h3>Eliminar un comentario</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="comment">
+          <input type="number" name="id_comment" placeholder="ID del comentario" required>
+        </p>
+        <p>
+          <button type="submit">Eliminar un comentario</button>
+        </p>
+      </form>
+    </div>
+    <hr>
+    <div class="form_div">
+      <h3>Eliminar un autor músical</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="author">
+          <input type="number" name="id_author" placeholder="ID del autor" required>
+        </p>
+        <p>
+          <button type="submit">Eliminar autor músical</button>
+        </p>
+      </form>
+    </div> 
+    <div class="form_div">
+      <h3>Eliminar un integrante de un autor</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="author_member">
+          <input type="number" name="id_author" placeholder="ID del autor" required>
+          <input type="text" name="name_member" placeholder="nombre del integrante" required>
+        </p>
+        <p>
+          <button type="submit">Eliminar integrante de un autor músical</button>
+        </p>
+      </form>
+    </div>
+    <div class="form_div">
+      <h3>Eliminar un género músical de un autor</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="author_gender">
+          <input type="number" name="id_author" placeholder="ID del autor" required>
+          <input type="number" name="id_gender" placeholder="ID del género músical" required>
+        </p>
+        <p>
+          <button type="submit">Eliminar un género de un autor músical</button>
+        </p>
+      </form>
+    </div>      
+    <div class="form_div">
+      <h3>Eliminar una canción</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="song">
+          <input type="number" name="id_song" placeholder="ID de la canción " required>
+        </p>
+        <p>
+          <button type="submit">Eliminar canción</button>
+        </p>
+      </form>
+    </div>
+    <div class="form_div">
+      <h3>Eliminar un autor de una canción</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="song_author">
+          <input type="number" name="id_song" placeholder="ID de la canción " required>
+          <input type="number" name="id_author" placeholder="ID del autor " required>
+        </p>
+        <p>
+          <button type="submit">Eliminar un autor de una canción</button>
+        </p>
+      </form>
+    </div>
+    <div class="form_div">
+      <h3>Eliminar un género músical de una canción</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="song_gender">
+          <input type="number" name="id_song" placeholder="ID de la canción " required>
+          <input type="number" name="id_gender" placeholder="ID del género músical " required>
+        </p>
+        <p>
+          <button type="submit">Eliminar un género músical de una canción</button>
+        </p>
+      </form>
+    </div>
+    <div class="form_div">
+      <h3>Eliminar un albúm</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="album">
+          <input type="number" name="id_album" placeholder="ID del album" required>
+        </p>
+        <p>
+          <button type="submit">Eliminar un albúm</button>
+        </p>
+      </form>
+    </div>
+    <div class="form_div">
+      <h3>Eliminar una canción de un albúm</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="album_song">
+          <input type="number" name="id_album" placeholder="ID del album" required>
+          <input type="number" name="id_song" placeholder="ID de la canción" required>
+        </p>
+        <p>
+          <button type="submit">Eliminar una canción de un albúm</button>
+        </p>
+      </form>
+    </div>
+    <div class="form_div">
+      <h3>Eliminar una género músical de un albúm</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="album_gender">
+          <input type="number" name="id_album" placeholder="ID del album" required>
+          <input type="number" name="id_gender" placeholder="ID del género músical" required>
+        </p>
+        <p>
+          <button type="submit">Eliminar una canción de un albúm</button>
+        </p>
+      </form>
+    </div>
+    <div class="form_div">
+      <h3>Eliminar un género músical</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="gender">
+          <input type="number" name="id_gender" placeholder="ID del género músical" required>
+        </p>
+        <p>
+          <button type="submit">Eliminar un género músical</button>
+        </p>
+      </form>
+    </div>
+    <hr>
+    <div class="form_div">
+      <h3>Eliminar un técnico</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="technician">
+          <input type="number" name="id_technician" placeholder="ID del técnico" required>
+        </p>
+        <p>
+          <button type="submit">Eliminar técnico</button>
+        </p>
+      </form>
+    </div>
+    <div class="form_div">
+      <h3>Eliminar un problema</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="problem">
+          <input type="number" name="id_problem" placeholder="ID del problema" required>
+        </p>
+        <p>
+          <button type="submit">Eliminar un problema</button>
+        </p>
+      </form>
+    </div>
 {% endblock %}

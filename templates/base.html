@@ -4,31 +4,29 @@
     <meta charset="UTF-8">
     <title>{% block title %} {% endblock %} - FlaskApp</title>
     <style>
+        nav {
+            background-color: #ffffff;
+        }
         nav a {
-            color: #d64161;
+            color: #57068c;
             font-size: 3em;
             margin-left: 50px;
             text-decoration: none;
         }
-
-        .book {
-            padding: 20px;
-            margin: 10px;
-            background-color: #f7f4f4;
+        .form_div {
+          background-color: rgb(184, 147, 184); 
+          border: 1px solid black;
+          text-align: center; 
+          margin: 50px 250px 50px 250px;             
         }
-
-        .review {
-                margin-left: 50px;
-                font-size: 20px;
-        }
-
     </style>
 </head>
 <body>
     <nav>
         <a href="{{ url_for('about') }}">ULL MUSIC</a>
-        <a href="{{ url_for('insert') }}">Insert</a>
-        <a href="{{ url_for('delete') }}">Delete</a>        
+        <a href="{{ url_for('insert') }}">Insertar</a>
+        <a href="{{ url_for('delete') }}">Eliminar</a>
+        <a href="{{ url_for('update') }}">Actualizar</a>        
     </nav>
     <hr>
     <div class="content">
