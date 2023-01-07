@@ -48,4 +48,8 @@ def insert():
 
 @app.route('/delete/', methods=('GET', 'POST'))
 def delete():  
-  return render_template('delete.html')  
+  return render_template('delete.html')
+
+@app.route('/update/', methods=('GET', 'POST'))
+def update():
+  return render_template('update.html')
