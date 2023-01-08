@@ -5,10 +5,10 @@
     <title>{% block title %} {% endblock %} - FlaskApp</title>
     <style>
         nav {
-            background-color: #ffffff;
+            background-color: #57068c;
         }
         nav a {
-            color: #57068c;
+            color: #ffffff;
             font-size: 3em;
             margin-left: 50px;
             text-decoration: none;
@@ -24,12 +24,13 @@
 <body>
     <nav>
         <a href="{{ url_for('about') }}">ULL MUSIC</a>
+        <a href="{{ url_for('about') }}">Contenido (por hacer)</a>
+        <a href="{{ url_for('about') }}">Consultas (por hacer)</a>
         <a href="{{ url_for('insert') }}">Insertar</a>
         <a href="{{ url_for('delete') }}">Eliminar</a>
         <a href="{{ url_for('update') }}">Actualizar</a>        
     </nav>
-    <hr>
-    <div class="content">
+    <div class="content" style="background-color:rgb(248, 228, 248)">
         {% block content %} {% endblock %}
     </div>
 </body>

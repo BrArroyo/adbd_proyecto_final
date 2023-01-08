@@ -97,7 +97,10 @@ CREATE TABLE albumes (
   año_salida INT NOT NULL,
   duracion FLOAT NOT NULL,
   PRIMARY KEY (id_album),
-  FOREIGN KEY (id_autor) REFERENCES autores (id_autor)
+  CONSTRAINT fk_id_autor
+    FOREIGN KEY (id_autor)
+    REFERENCES autores (id_autor)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE generos (
@@ -113,8 +116,14 @@ CREATE TABLE comentarios (
   texto_comentario VARCHAR(1000) NOT NULL,
   fecha_comentario DATE DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id_comentario, id_usuario, id_cancion),
-  FOREIGN KEY (id_usuario) REFERENCES usuarios (id_usuario),
-  FOREIGN KEY (id_cancion) REFERENCES canciones (id_cancion)
+  CONSTRAINT fk_id_usuario
+    FOREIGN KEY (id_usuario)
+    REFERENCES usuarios (id_usuario)
+    ON DELETE CASCADE,
+  CONSTRAINT fk_id_cancion
+    FOREIGN KEY (id_cancion)
+    REFERENCES canciones (id_cancion)
+    ON DELETE CASCADE
 );
 
 /* -- Tabla de relaciones -- */
@@ -127,87 +136,150 @@ CREATE TABLE resuelve (
   fecha_resolucion DATE NOT NULL,
   resuelto BOOLEAN NOT NULL,
   PRIMARY KEY (id_tecnico, id_problema, id_usuario),
-  FOREIGN KEY (id_tecnico) REFERENCES servicio_tecnico (id_tecnico),
-  FOREIGN KEY (id_problema) REFERENCES problema (id_problema),
-  FOREIGN KEY (id_usuario) REFERENCES usuarios (id_usuario)
+  CONSTRAINT fk_id_tecnico
+    FOREIGN KEY (id_tecnico)
+    REFERENCES servicio_tecnico (id_tecnico)
+    ON DELETE CASCADE,
+  CONSTRAINT fk_id_problema
+    FOREIGN KEY (id_problema)
+    REFERENCES problema (id_problema)
+    ON DELETE CASCADE,
+  CONSTRAINT fk_id_usuario
+    FOREIGN KEY (id_usuario)
+    REFERENCES usuarios (id_usuario)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE lista_canciones_canciones (
   id_lista INT NOT NULL,
   id_cancion INT NOT NULL,
   PRIMARY KEY (id_lista, id_cancion),
-  FOREIGN KEY (id_lista) REFERENCES listas_de_canciones (id_lista),
-  FOREIGN KEY (id_cancion) REFERENCES canciones (id_cancion)
+  CONSTRAINT fk_id_lista
+    FOREIGN KEY (id_lista)
+    REFERENCES listas_de_canciones (id_lista)
+    ON DELETE CASCADE,
+  CONSTRAINT fk_id_cancion
+    FOREIGN KEY (id_cancion)
+    REFERENCES canciones (id_cancion)
+    ON DELETE CASCADE  
 );
 
 CREATE TABLE lista_canciones_usuarios (
   id_lista INT NOT NULL,
   id_usuario INT NOT NULL,
   PRIMARY KEY (id_lista, id_usuario),
-  FOREIGN KEY (id_lista) REFERENCES listas_de_canciones (id_lista),
-  FOREIGN KEY (id_usuario) REFERENCES usuarios (id_usuario)
+  CONSTRAINT fk_id_lista
+    FOREIGN KEY (id_lista)
+    REFERENCES listas_de_canciones (id_lista)
+    ON DELETE CASCADE,
+  CONSTRAINT fk_id_usuario
+    FOREIGN KEY (id_usuario)
+    REFERENCES usuarios (id_usuario)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE usuario_canciones (
   id_usuario INT NOT NULL,
   id_cancion INT NOT NULL,
   PRIMARY KEY (id_usuario, id_cancion),
-  FOREIGN KEY (id_usuario) REFERENCES usuarios (id_usuario),
-  FOREIGN KEY (id_cancion) REFERENCES canciones (id_cancion)
+  CONSTRAINT fk_id_usuario
+    FOREIGN KEY (id_usuario)
+    REFERENCES usuarios (id_usuario)
+    ON DELETE CASCADE,
+  CONSTRAINT fk_id_cancion
+    FOREIGN KEY (id_cancion)
+    REFERENCES canciones (id_cancion)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE canciones_albumes (
   id_cancion INT NOT NULL,
   id_album INT NOT NULL,
   PRIMARY KEY (id_cancion, id_album),
-  FOREIGN KEY (id_cancion) REFERENCES canciones (id_cancion),
-  FOREIGN KEY (id_album) REFERENCES albumes (id_album)
+  CONSTRAINT fk_id_cancion
+    FOREIGN KEY (id_cancion)
+    REFERENCES canciones (id_cancion)
+    ON DELETE CASCADE,
+  CONSTRAINT fk_id_album
+    FOREIGN KEY (id_album)
+    REFERENCES albumes (id_album)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE canciones_autores (
   id_cancion INT NOT NULL,
   id_autor INT NOT NULL,
   PRIMARY KEY (id_cancion, id_autor),
-  FOREIGN KEY (id_cancion) REFERENCES canciones (id_cancion),
-  FOREIGN KEY (id_autor) REFERENCES autores (id_autor)
+  CONSTRAINT fk_id_cancion
+    FOREIGN KEY (id_cancion)
+    REFERENCES canciones (id_cancion)
+    ON DELETE CASCADE,
+  CONSTRAINT fk_id_autor
+    FOREIGN KEY (id_autor)
+    REFERENCES autores (id_autor)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE canciones_generos (
   id_cancion INT NOT NULL,
   id_genero INT NOT NULL,
   PRIMARY KEY (id_cancion, id_genero),
-  FOREIGN KEY (id_cancion) REFERENCES canciones (id_cancion),
-  FOREIGN KEY (id_genero) REFERENCES generos (id_genero)
+  CONSTRAINT fk_id_cancion
+    FOREIGN KEY (id_cancion)
+    REFERENCES canciones (id_cancion)
+    ON DELETE CASCADE,
+  CONSTRAINT fk_id_genero
+    FOREIGN KEY (id_genero)
+    REFERENCES generos (id_genero)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE autores_generos (
   id_autor INT NOT NULL,
   id_genero INT NOT NULL,
   PRIMARY KEY (id_autor, id_genero),
-  FOREIGN KEY (id_autor) REFERENCES autores (id_autor),
-  FOREIGN KEY (id_genero) REFERENCES generos (id_genero)
+  CONSTRAINT fk_id_autor
+    FOREIGN KEY (id_autor)
+    REFERENCES autores (id_autor)
+    ON DELETE CASCADE,
+  CONSTRAINT fk_id_genero
+    FOREIGN KEY (id_genero)
+    REFERENCES generos (id_genero)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE albumes_generos (
   id_album INT NOT NULL,
   id_genero INT NOT NULL,
   PRIMARY KEY (id_album, id_genero),
-  FOREIGN KEY (id_album) REFERENCES albumes (id_album),
-  FOREIGN KEY (id_genero) REFERENCES generos (id_genero)
+  CONSTRAINT fk_id_album
+    FOREIGN KEY (id_album)
+    REFERENCES albumes (id_album)
+    ON DELETE CASCADE,
+  CONSTRAINT fk_id_genero
+    FOREIGN KEY (id_genero)
+    REFERENCES generos (id_genero)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE grupo (
   id_autor INT NOT NULL,
   nombre_integrante VARCHAR(100) NOT NULL,
   PRIMARY KEY (id_autor, nombre_integrante),
-  FOREIGN KEY (id_autor) REFERENCES autores (id_autor)
+  CONSTRAINT fk_id_autor
+    FOREIGN KEY (id_autor)
+    REFERENCES autores (id_autor)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE artista (
   id_autor INT NOT NULL,
   nombre_artista VARCHAR(100) NOT NULL,
   PRIMARY KEY (id_autor),
-  FOREIGN KEY (id_autor) REFERENCES autores (id_autor)
+  CONSTRAINT fk_id_autor
+    FOREIGN KEY (id_autor)
+    REFERENCES autores (id_autor)
+    ON DELETE CASCADE
 );
 
 /* -- INSERT DATA -- */
