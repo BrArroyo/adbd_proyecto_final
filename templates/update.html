@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div style="text-align: center;">
-      <h2>{% block title %} Actualizar el elemento que desee en la base de datos de ULL Music {% endblock %}</h2>
-    </div>
+<div style="text-align: center;">
+  <h2>{% block title %} Actualizar el elemento que desee en la base de datos de ULL Music {% endblock %}</h2>
+</div>
     <div class="form_div">
       <h3>Actualizar un usuario</h3>
       <form method="post">
@@ -23,6 +23,40 @@
         </p>
       </form>
     </div>
+    <div class="form_div">
+      <h3>Actualizar una lista de canciones</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="song_list">
+          <input type="number" name="id_list" placeholder="ID de la lista" required>
+          <input type="text" name="name_list" placeholder="nombre de la lista" required>
+          <br>
+          <br>
+          <input type="text" name="description" placeholder="descripción de la lista" required>          
+        </p>
+        <p>
+          <button type="submit">Actualizar una lista de canciones</button>
+        </p>
+      </form>
+    </div>
+    <div class="form_div">
+      <h3>Actualizar un comentario</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="comment">
+          <input type="number" name="id_comment" placeholder="ID del comentario" required>
+          <input type="number" name="id_user" placeholder="ID del usuario" required>
+          <input type="number" name="id_song" placeholder="ID de la canción" required>
+          <br>
+          <br>
+          <input type="text" name="text_comment" placeholder="texto del comentario" required>
+        </p>
+        <p>
+          <button type="submit">Actualizar un comentario</button>
+        </p>
+      </form>
+    </div>
+    <hr>
     <div class="form_div">
       <h3>Actualizar un autor músical</h3>
       <form method="post">
@@ -52,6 +86,35 @@
         </p>
       </form>
     </div>
+    <div class="form_div">
+      <h3>Actualizar un albúm</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="album">
+          <input type="number" name="id_album" placeholder="ID del album" required>
+          <input type="text" name="name_album" placeholder="nombre del album" required>
+          <input type="text" name="id_author" placeholder="id del autor" required>
+          <input type="text" name="year" placeholder="año de salida" required>
+        </p>
+        <p>          
+          <button type="submit">Actualizar un albúm</button>
+        </p>
+      </form>
+    </div>
+    <div class="form_div">
+      <h3>Actualizar un género músical</h3>
+      <form method="post">
+        <p>
+          <input type="hidden" name="type" value="gender">
+          <input type="number" name="id_gender" placeholder="ID del género músical" required>
+          <input type="text" name="name_gender" placeholder="nombre del género músical" required>
+        </p>
+        <p>
+          <button type="submit">Actualizar un género músical</button>
+        </p>
+      </form>
+    </div>
+    <hr>
     <div class="form_div">
       <h3>Actualizar un técnico</h3>
       <form method="post">
@@ -87,50 +150,6 @@
       </form>
     </div>
     <div class="form_div">
-      <h3>Actualizar una lista de canciones</h3>
-      <form method="post">
-        <p>
-          <input type="hidden" name="type" value="song_list">
-          <input type="number" name="id_list" placeholder="ID de la lista" required>
-          <input type="text" name="name_list" placeholder="nombre de la lista" required>
-          <br>
-          <br>
-          <input type="text" name="description" placeholder="descripción de la lista" required>          
-        </p>
-        <p>
-          <button type="submit">Actualizar una lista de canciones</button>
-        </p>
-      </form>
-    </div>
-    <div class="form_div">
-      <h3>Actualizar un albúm</h3>
-      <form method="post">
-        <p>
-          <input type="hidden" name="type" value="album">
-          <input type="number" name="id_album" placeholder="ID del album" required>
-          <input type="text" name="name_album" placeholder="nombre del album" required>
-          <input type="text" name="id_author" placeholder="id del autor" required>
-          <input type="text" name="year" placeholder="año de salida" required>
-        </p>
-        <p>          
-          <button type="submit">Actualizar un albúm</button>
-        </p>
-      </form>
-    </div>
-    <div class="form_div">
-      <h3>Actualizar un género músical</h3>
-      <form method="post">
-        <p>
-          <input type="hidden" name="type" value="gender">
-          <input type="number" name="id_gender" placeholder="ID del género músical" required>
-          <input type="text" name="name_gender" placeholder="nombre del género músical" required>
-        </p>
-        <p>
-          <button type="submit">Actualizar un género músical</button>
-        </p>
-      </form>
-    </div>
-    <div class="form_div">
       <h3>Actualizar una incidencia</h3>
       <form method="post">
         <p>
@@ -149,23 +168,6 @@
         </p>
         <p>
           <button type="submit">Actualizar una incidencia</button>
-        </p>
-      </form>
-    </div>
-    <div class="form_div">
-      <h3>Actualizar un comentario</h3>
-      <form method="post">
-        <p>
-          <input type="hidden" name="type" value="comment">
-          <input type="number" name="id_comment" placeholder="ID del comentario" required>
-          <input type="number" name="id_user" placeholder="ID del usuario" required>
-          <input type="number" name="id_song" placeholder="ID de la canción" required>
-          <br>
-          <br>
-          <input type="text" name="text_comment" placeholder="texto del comentario" required>
-        </p>
-        <p>
-          <button type="submit">Actualizar un comentario</button>
         </p>
       </form>
     </div>
