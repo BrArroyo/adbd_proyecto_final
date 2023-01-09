@@ -78,8 +78,8 @@
           <input type="hidden" name="type" value="song">
           <input type="number" name="id_song" placeholder="ID de la canción " required>
           <input type="text" name="song_name" placeholder="nombre de la canción" required>
-          <input type="text" name="year" placeholder="año de salida" required>
-          <input type="time" name="duration" placeholder="duración" required>
+          <input type="number" name="year" placeholder="año de salida" required>
+          <input type="number" step="0.01" name="duration" placeholder="duración" required>
         </p>
         <p>
           <button type="submit">Actualizar una canción</button>
@@ -94,7 +94,7 @@
           <input type="number" name="id_album" placeholder="ID del album" required>
           <input type="text" name="name_album" placeholder="nombre del album" required>
           <input type="text" name="id_author" placeholder="id del autor" required>
-          <input type="text" name="year" placeholder="año de salida" required>
+          <input type="number" name="year" placeholder="año de salida" required>
         </p>
         <p>          
           <button type="submit">Actualizar un albúm</button>
@@ -105,9 +105,9 @@
       <h3>Actualizar un género músical</h3>
       <form method="post">
         <p>
-          <input type="hidden" name="type" value="gender">
-          <input type="number" name="id_gender" placeholder="ID del género músical" required>
-          <input type="text" name="name_gender" placeholder="nombre del género músical" required>
+          <input type="hidden" name="type" value="genre">
+          <input type="number" name="id_genre" placeholder="ID del género músical" required>
+          <input type="text" name="name_genre" placeholder="nombre del género músical" required>
         </p>
         <p>
           <button type="submit">Actualizar un género músical</button>
@@ -124,6 +124,10 @@
           <input type="text" name="firstname" placeholder="nombre" required>
           <input type="text" name="lastname" placeholder="apellidos" required>
           <input type="text" name="dni" placeholder="dni" required>
+          <br>
+          <br>
+          <input type="date" name="date_up" placeholder="fecha de alta" required>
+          <input type="date" name="date_down" placeholder="fecha de baja" required>
         </p>
         <p>
           <button type="submit">Actualizar un técnico</button>
@@ -154,7 +158,6 @@
       <form method="post">
         <p>
           <input type="hidden" name="type" value="incidence">
-          <input type="number" name="id_incidence" placeholder="ID de la incidencia" required>
           <input type="number" name="id_technician" placeholder="ID del técnico" required>
           <input type="number" name="id_problem" placeholder="ID del problema" required>
           <input type="number" name="id_user" placeholder="ID del usuario" required>
@@ -164,7 +167,7 @@
           <input type="date" name="date_resolution" placeholder="fecha de la resolución" required>
           <br>
           <br>
-          <input type="text" name="resolution" placeholder="¿se resolvio el problema?" required>
+          <input type="text" name="resolution" placeholder="¿se resolvio el problema? True/False" required>
         </p>
         <p>
           <button type="submit">Actualizar una incidencia</button>

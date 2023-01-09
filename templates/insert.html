@@ -49,7 +49,7 @@
           <input type="text" name="id_song" placeholder="ID de las canciones que componen la lista, separados por '," required>
           <br>
           <br>
-          <input type="text" name="id_username" placeholder="ID de los usuario pueden acceder a la lista, separados por '," required>            
+          <input type="text" name="id_user" placeholder="ID de los usuario pueden acceder a la lista, separados por '," required>            
         </p>
         <p>
           <button type="submit">Añadir una lista de canciones</button>
@@ -87,8 +87,8 @@
       <form method="post">
         <p>
           <input type="hidden" name="type" value="comment">
-          <input type="text" name="id_user" placeholder="ID del usuario" required>
-          <input type="text" name="id_song" placeholder="ID de la canción" required>
+          <input type="number" name="id_user" placeholder="ID del usuario" required>
+          <input type="number" name="id_song" placeholder="ID de la canción" required>
           <br>
           <br>
           <input type="text" name="text_comment" placeholder="texto del comentario" required>
@@ -104,14 +104,14 @@
       <form method="post">
         <p>
           <input type="hidden" name="type" value="author">
-          <input type="text" name="name_author" placeholder="nombre del autor de la canción" required>
+          <input type="text" name="name_author" placeholder="nombre del autor músical" required>
           <input type="text" name="name_discography" placeholder="nombre de la discografia" required>
           <br>
           <br>
           <input type="text" name="names_artist" placeholder="nombres que conforman el autor, separados por ','" required>
           <br>
           <br>
-          <input type="text" name="name_gender" placeholder="ID de los generos a los que pertenece el autor, separados por '," required>  
+          <input type="text" name="id_genre" placeholder="ID de los generos a los que pertenece el autor, separados por '," required>  
         </p>
         <p>
           <button type="submit">Añadir un autor músical</button>
@@ -123,7 +123,7 @@
       <form method="post">
         <p>
           <input type="hidden" name="type" value="author_member">
-          <input type="number" name="id_gender" placeholder="ID del autor" required>
+          <input type="number" name="id_author" placeholder="ID del autor" required>
           <input type="text" name="name_artist" placeholder="nombre del integrante" required>
         </p>
         <p>
@@ -135,9 +135,9 @@
       <h3>Agregar un género a cierto autor</h3>
       <form method="post">
         <p>
-          <input type="hidden" name="type" value="author_gender">
+          <input type="hidden" name="type" value="author_genre">
           <input type="number" name="id_author" placeholder="ID del autor" required>
-          <input type="number" name="id_gender" placeholder="ID del género músical" required>
+          <input type="number" name="id_genre" placeholder="ID del género músical" required>
         </p>
         <p>
           <button type="submit">Añadir un género músical</button>
@@ -150,14 +150,14 @@
         <p>
           <input type="hidden" name="type" value="song">
           <input type="text" name="song_name" placeholder="nombre de la canción" required>
-          <input type="text" name="year" placeholder="año de salida" required>
-          <input type="time" name="duration" placeholder="duración" required>
-          <br>
+          <input type="number" name="year" placeholder="año de salida" required>
+          <input type="number" step="0.01" name="duration" placeholder="duración" required>
+          <br>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
           <br>
           <input type="text" name="id_author" placeholder="ID de los autores que realizaron la canción, separados por '," required>
           <br>
           <br>  
-          <input type="text" name="id_gender" placeholder="ID de los generos a los que pertenece la canción, separados por '," required> 
+          <input type="text" name="id_genre" placeholder="ID de los generos a los que pertenece la canción, separados por '," required> 
         </p>
         <p>
           <button type="submit">Añadir una canción</button>
@@ -181,9 +181,9 @@
       <h3>Agregar un género músical a una canción</h3>
       <form method="post">
         <p>
-          <input type="hidden" name="type" value="song_gender">
+          <input type="hidden" name="type" value="song_genre">
           <input type="number" name="id_song" placeholder="ID de la canción" required>
-          <input type="number" name="id_gender" placeholder="ID del género músical" required>
+          <input type="number" name="id_genre" placeholder="ID del género músical" required>
         </p>
         <p>
           <button type="submit">Añadir un género a una canción</button>
@@ -197,10 +197,13 @@
           <input type="hidden" name="type" value="album">
           <input type="text" name="name_album" placeholder="nombre del album" required>
           <input type="text" name="id_author" placeholder="ID del autor" required>
-          <input type="text" name="year" placeholder="año de salida" required>
+          <input type="number" name="year" placeholder="año de salida" required>
           <br>
           <br>
-          <input type="text" name="id_song" placeholder="ID de las canciones que componen el albúm, separados por ',">
+          <input type="text" name="id_song" placeholder="ID de las canciones que componen el albúm, separados por '," required>
+          <br>
+          <br>
+          <input type="text" name="id_genre" placeholder="ID de los generos a los que pertenece el albúm, separados por '," required>
         </p>
         <p>          
           <button type="submit">Añadir un albúm</button>
@@ -212,8 +215,8 @@
       <form method="post">
         <p>
           <input type="hidden" name="type" value="album_song">
-          <input type="number" name="id_album" placeholder="ID del albúm" required>
           <input type="number" name="id_song" placeholder="ID de la canción" required>
+          <input type="number" name="id_album" placeholder="ID del albúm" required>
         </p>
         <p>          
           <button type="submit">Añadir una canción a un albúm</button>
@@ -224,9 +227,9 @@
       <h3>Agregar un género músical a un albúm</h3>
       <form method="post">
         <p>
-          <input type="hidden" name="type" value="album_gender">
+          <input type="hidden" name="type" value="album_genre">
           <input type="number" name="id_album" placeholder="ID del albúm" required>
-          <input type="number" name="id_gender" placeholder="ID del género músical" required>
+          <input type="number" name="id_genre" placeholder="ID del género músical" required>
         </p>
         <p>          
           <button type="submit">Añadir un género músical a un albúm</button>
@@ -237,8 +240,8 @@
       <h3>Agregar un género músical</h3>
       <form method="post">
         <p>
-          <input type="hidden" name="type" value="gender">
-          <input type="text" name="name_gender" placeholder="nombre del género músical" required>
+          <input type="hidden" name="type" value="genre">
+          <input type="text" name="name_genre" placeholder="nombre del género músical" required>
         </p>
         <p>
           <button type="submit">Añadir un género músical</button>
@@ -292,7 +295,7 @@
           <input type="date" name="date_resolution" placeholder="fecha de la resolución" required>
           <br>
           <br>
-          <input type="text" name="resolution" placeholder="¿se resolvio el problema?" required>
+          <input type="text" name="resolution" placeholder="¿se resolvio el problema? true/false" required>
         </p>
         <p>
           <button type="submit">Añadir una incidencia</button>
