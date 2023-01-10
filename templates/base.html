@@ -24,11 +24,9 @@
 <body>
     <nav>
         <a href="{{ url_for('about') }}">ULL MUSIC</a>
-        <a href="{{ url_for('about') }}">Contenido (por hacer)</a>
-        <a href="{{ url_for('about') }}">Consultas (por hacer)</a>
         <a href="{{ url_for('insert') }}">Insertar</a>
         <a href="{{ url_for('delete') }}">Eliminar</a>
-        <a href="{{ url_for('update') }}">Actualizar</a>        
+        <a href="{{ url_for('update') }}">Actualizar</a>       
     </nav>
     <div class="content" style="background-color:rgb(248, 228, 248)">
         {% block content %} {% endblock %}
