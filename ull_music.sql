@@ -42,7 +42,7 @@ CREATE TABLE servicio_tecnico (
   id_tecnico SERIAL NOT NULL,
   nombre VARCHAR(50) NOT NULL,
   apellido VARCHAR(50) NOT NULL,
-  dni VARCHAR(20) NOT NULL,
+  dni VARCHAR(20) NOT NULL UNIQUE,
   fecha_de_alta DATE DEFAULT CURRENT_TIMESTAMP,
   fecha_de_baja DATE NULL,
   PRIMARY KEY (id_tecnico)
@@ -50,7 +50,7 @@ CREATE TABLE servicio_tecnico (
 
 CREATE TABLE problema (
   id_problema SERIAL NOT NULL,
-  nombre_problema VARCHAR(50) NOT NULL,
+  nombre_problema VARCHAR(50) NOT NULL UNIQUE,
   descripcion VARCHAR(1000) NOT NULL,
   resolucion VARCHAR(1000) NOT NULL,
   PRIMARY KEY (id_problema)
@@ -60,9 +60,9 @@ CREATE TABLE usuarios (
   id_usuario SERIAL NOT NULL,
   nombre VARCHAR(50) NOT NULL,
   apellido VARCHAR(50) NOT NULL,
-  dni VARCHAR(20) NOT NULL,
-  username VARCHAR(50) NOT NULL,
-  email VARCHAR(50) NOT NULL,
+  dni VARCHAR(20) NOT NULL UNIQUE,
+  username VARCHAR(50) NOT NULL UNIQUE,
+  email VARCHAR(50) NOT NULL UNIQUE,
   fecha_registro DATE DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id_usuario)
 );
@@ -85,7 +85,7 @@ CREATE TABLE listas_de_canciones (
 
 CREATE TABLE autores (
   id_autor SERIAL NOT NULL,
-  nombre_autor VARCHAR(50) NOT NULL,
+  nombre_autor VARCHAR(50) NOT NULL UNIQUE,
   discografia VARCHAR(1000) NULL,
   PRIMARY KEY (id_autor)
 );
@@ -93,7 +93,7 @@ CREATE TABLE autores (
 CREATE TABLE albumes (
   id_album SERIAL NOT NULL,
   id_autor INT NOT NULL,
-  nombre_album VARCHAR(50) NOT NULL,
+  nombre_album VARCHAR(50) NOT NULL UNIQUE,
   año_salida INT NOT NULL,
   duracion FLOAT NOT NULL,
   PRIMARY KEY (id_album),
@@ -105,7 +105,7 @@ CREATE TABLE albumes (
 
 CREATE TABLE generos (
   id_genero SERIAL NOT NULL,
-  nombre_genero VARCHAR(50) NOT NULL,
+  nombre_genero VARCHAR(50) NOT NULL UNIQUE,
   PRIMARY KEY (id_genero)
 );
 
@@ -281,6 +281,67 @@ CREATE TABLE artista (
     REFERENCES autores (id_autor)
     ON DELETE CASCADE
 );
+
+
+/* -- CHECKS -- */
+
+ALTER TABLE servicio_tecnico
+ADD CONSTRAINT CK_date_tecnico
+CHECK (fecha_de_baja > fecha_de_alta);
+
+ALTER TABLE canciones
+ADD CONSTRAINT CK_duration_canciones
+CHECK (duracion > 0);
+
+ALTER TABLE usuarios
+ADD CONSTRAINT CK_email_usuarios
+CHECK (email LIKE '%@%');
+
+--ver la forma de realizar y que no de error
+-- ALTER TABLE usuarios
+-- ADD CONSTRAINT CK_dni_usuarios
+-- CHECK (dni LIKE'[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][A-Z]');
+
+
+
+/* -- DISPARADORES -- */
+
+CREATE FUNCTION duration_list() returns trigger AS $$
+BEGIN
+  UPDATE listas_de_canciones
+  SET duracion = (SELECT ROUND(SUM(duracion)::numeric, 2)
+                  FROM canciones 
+                  WHERE id_cancion IN (SELECT id_cancion 
+                                       FROM lista_canciones_canciones 
+                                       WHERE id_lista = NEW.id_lista))
+  WHERE id_lista = NEW.id_lista;
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER duration_list AFTER INSERT OR UPDATE OR DELETE ON lista_canciones_canciones
+FOR EACH ROW EXECUTE PROCEDURE duration_list();
+
+
+
+CREATE FUNCTION duration_album() returns trigger AS $$
+BEGIN
+  UPDATE albumes
+  SET duracion = (SELECT ROUND((SUM(duracion))::numeric, 2) 
+                  FROM canciones 
+                  WHERE id_cancion IN (SELECT id_cancion 
+                                       FROM canciones_albumes 
+                                       WHERE id_album = NEW.id_album))
+  WHERE id_album = NEW.id_album;
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER duration_album AFTER INSERT OR UPDATE OR DELETE ON canciones_albumes
+FOR EACH ROW EXECUTE PROCEDURE duration_album();
+
+
 
 /* -- INSERT DATA -- */
 

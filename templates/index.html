@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Contenido de la base de datos {% endblock %}</h1>
+    <h3> Selecciona la base de datos para ver su contenido</h3>
+    <form method="post">
+      <p>
+        <select name="type">
+            <option value="usuarios">usuarios</option>
+            <option value="listas_de_canciones">listas de canciones</option>
+            <option value="autores">autores</option>
+            <option value="albumes">albumes</option>
+            <option value="canciones">canciones</option>
+            <option value="generos">generos</option>
+            <option value="comentarios">comentarios</option>
+            <option value="servicio_tecnico">servicio tecnico</option>
+            <option value="problema">problema</option>
+        </select>        
+      </p>
+      <p>
+        <button type="submit">Ver contenido</button>
+      </p>
+    </form>
+    {% for c in content %}
+    <div class='contenido'>
+      <p> {{ c }} </p>
+    </div>
+    {% endfor %}
+{% endblock %}

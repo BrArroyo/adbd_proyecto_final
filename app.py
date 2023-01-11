@@ -673,3 +673,56 @@ def update():
       conn.close()
          
   return render_template('update.html')
+
+@app.route('/index/', methods=('GET', 'POST'))
+def index():
+  content = []
+  if request.method == 'POST':
+    type = request.form['type']
+    conn = get_db_connection()
+    cur = conn.cursor()
+    
+    if type == 'usuarios':
+      cur.execute("SELECT json_build_object ('id_usuario', id_usuario, 'nombre', nombre, 'apellido', apellido, 'dni', dni, 'username', username, 'email', email, 'fecha_registro', fecha_registro) FROM usuarios")
+      content = cur.fetchall()
+    
+    if type == 'servicio_tecnico':
+      cur.execute("SELECT json_build_object ('id_tecnico', id_tecnico, 'nombre', nombre, 'apellido', apellido, 'dni', dni, 'fecha_de_alta', fecha_de_alta, 'fecha_de_baja', fecha_de_baja) FROM servicio_tecnico")
+      content = cur.fetchall()
+
+    if type == 'problema':
+      cur.execute("SELECT json_build_object ('id_problema', id_problema, 'nombre_problema', nombre_problema, 'descripcion', descripcion, 'resolucion', resolucion) FROM problema")
+      content = cur.fetchall()
+    
+    if type == 'canciones':
+      cur.execute("SELECT json_build_object ('id_cancion', id_cancion, 'nombre_cancion', nombre_cancion, 'año_salida', año_salida, 'duracion', duracion) FROM canciones")
+      content = cur.fetchall()
+    
+    if type == 'listas_de_canciones':
+      cur.execute("SELECT json_build_object ('id_lista', id_lista, 'nombre_lista', nombre_lista, 'descripcion', descripcion, 'duracion', duracion) FROM listas_de_canciones")
+      content = cur.fetchall()
+
+    if type == 'autores':
+      cur.execute("SELECT json_build_object ('id_autor', id_autor, 'nombre_autor', nombre_autor, 'discografia', discografia) FROM autores")
+      content = cur.fetchall()
+
+    if type == 'albumes':
+      cur.execute("SELECT json_build_object ('id_album', id_album, 'id_autor', id_autor, 'nombre_album', nombre_album, 'año_salida', año_salida, 'duracion', duracion) FROM albumes")
+      content = cur.fetchall()
+
+    if type == 'generos':
+      cur.execute("SELECT json_build_object ('id_genero', id_genero, 'nombre_genero', nombre_genero) FROM generos")
+      content = cur.fetchall()
+
+    if type == 'comentarios':
+      cur.execute("SELECT json_build_object ('id_comentario', id_comentario, 'id_usuario', id_usuario, 'id_cancion', id_cancion, 'texto_comentario', texto_comentario, 'fecha_comentario', fecha_comentario) FROM comentarios")
+      content = cur.fetchall()
+    
+    cur.close()
+    conn.close()
+  return render_template('index.html', content=content)
+
+
+# @app.errorhandler(404)
+# def id_not_found(error):
+#  return render_template("id_not_found.html"), 404
