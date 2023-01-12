@@ -297,15 +297,9 @@ ALTER TABLE usuarios
 ADD CONSTRAINT CK_email_usuarios
 CHECK (email LIKE '%@%');
 
---ver la forma de realizar y que no de error
--- ALTER TABLE usuarios
--- ADD CONSTRAINT CK_dni_usuarios
--- CHECK (dni LIKE'[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][A-Z]');
-
-
-
 /* -- DISPARADORES -- */
 
+--disparador para actualizar la duracion de cada lista de canciones
 CREATE FUNCTION duration_list() returns trigger AS $$
 BEGIN
   UPDATE listas_de_canciones
@@ -324,7 +318,7 @@ CREATE TRIGGER duration_list AFTER INSERT OR UPDATE OR DELETE ON lista_canciones
 FOR EACH ROW EXECUTE PROCEDURE duration_list();
 
 
-
+--disparador para actualizar la duracion de cada album
 CREATE FUNCTION duration_album() returns trigger AS $$
 BEGIN
   UPDATE albumes
@@ -342,6 +336,34 @@ CREATE TRIGGER duration_album AFTER INSERT OR UPDATE OR DELETE ON canciones_albu
 FOR EACH ROW EXECUTE PROCEDURE duration_album();
 
 
+--disparador para eliminar una canción si no tiene ningún autor asociado
+CREATE FUNCTION delete_song() returns trigger AS $$
+BEGIN
+  DELETE FROM canciones
+  WHERE id_cancion = OLD.id_cancion
+  AND NOT EXISTS (SELECT * FROM canciones_autores WHERE id_cancion = OLD.id_cancion);
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER delete_song AFTER DELETE ON canciones_autores
+FOR EACH ROW EXECUTE PROCEDURE delete_song();
+
+--disparador para eliminar una lista de canciones si no tiene ningún usuario asociado
+CREATE FUNCTION delete_list() returns trigger AS $$
+BEGIN
+  DELETE FROM listas_de_canciones
+  WHERE id_lista = OLD.id_lista
+  AND NOT EXISTS (SELECT * FROM lista_canciones_usuarios WHERE id_lista = OLD.id_lista);
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER delete_list AFTER DELETE ON lista_canciones_usuarios
+FOR EACH ROW EXECUTE PROCEDURE delete_list();
+
+
+
 
 /* -- INSERT DATA -- */
 
@@ -351,7 +373,7 @@ INSERT INTO servicio_tecnico (nombre, apellido, dni, fecha_de_alta, fecha_de_baj
   ('Andrés', 'González González', '12345678B', '02-01-2022', NULL);
 
 INSERT INTO problema (nombre_problema, descripcion, resolucion) VALUES
-  ('No se puede iniciar sesión', 'No se puede iniciar sesión en la aplicación', 'Reiniciar la aplicación'),
+  ('No se puede iniciar sesión', 'No se puede iniciar sesión en la aplicación', 'Comprobar que las credenciales de acceso están bien'),
   ('No se puede reproducir una canción', 'No se puede reproducir una canción', 'Reiniciar la aplicación'),
   ('No se puede reproducir un álbum', 'No se puede reproducir un álbum', 'Reiniciar la aplicación'),
   ('No se puede reproducir una lista de reproducción', 'No se puede reproducir una lista de reproducción', 'Reiniciar la aplicación');
@@ -360,7 +382,9 @@ INSERT INTO problema (nombre_problema, descripcion, resolucion) VALUES
 INSERT INTO usuarios (nombre, apellido, dni, username, email, fecha_registro) VALUES
   ('Bruno Lorenzo', 'Arroyo Pedraza', '12345678C', 'brunolarroyo', 'bruno@gmail.com', '02-01-2022'),
   ('Carla Cristina', 'Olivares Rodríguez', '12345679D', 'carlacolivares', 'carla@gmail.com', '02-01-2022'),
-  ('Dana Belén', 'Choque Zárate', '12345678E', 'danabelenchoque', 'dana@gmail.com', '02-01-2022');
+  ('Dana Belén', 'Choque Zárate', '12345678E', 'danabelenchoque', 'dana@gmail.com', '02-01-2022'),
+  ('Miguel Herradores', 'Tanaisu', '12345678Z', 'miguelisu', 'miguel@gmail.com', '02-01-2022'),
+  ('Micaela Belen', 'Pedraza Zuminich', '12345678V', 'zuminica', 'micaela@gmail.com', '02-01-2022');
 
 
 INSERT INTO canciones (nombre_cancion, año_salida, duracion) VALUES

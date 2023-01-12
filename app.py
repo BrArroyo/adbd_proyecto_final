@@ -683,46 +683,49 @@ def index():
     cur = conn.cursor()
     
     if type == 'usuarios':
-      cur.execute("SELECT json_build_object ('id_usuario', id_usuario, 'nombre', nombre, 'apellido', apellido, 'dni', dni, 'username', username, 'email', email, 'fecha_registro', fecha_registro) FROM usuarios")
+      cur.execute("SELECT json_build_object ('id_usuario', id_usuario, 'nombre', nombre, 'apellido', apellido, 'dni', dni, 'username', username, 'email', email, 'fecha_registro', fecha_registro) FROM usuarios ORDER BY id_usuario ASC")
       content = cur.fetchall()
     
     if type == 'servicio_tecnico':
-      cur.execute("SELECT json_build_object ('id_tecnico', id_tecnico, 'nombre', nombre, 'apellido', apellido, 'dni', dni, 'fecha_de_alta', fecha_de_alta, 'fecha_de_baja', fecha_de_baja) FROM servicio_tecnico")
+      cur.execute("SELECT json_build_object ('id_tecnico', id_tecnico, 'nombre', nombre, 'apellido', apellido, 'dni', dni, 'fecha_de_alta', fecha_de_alta, 'fecha_de_baja', fecha_de_baja) FROM servicio_tecnico ORDER BY id_tecnico ASC")
       content = cur.fetchall()
 
     if type == 'problema':
-      cur.execute("SELECT json_build_object ('id_problema', id_problema, 'nombre_problema', nombre_problema, 'descripcion', descripcion, 'resolucion', resolucion) FROM problema")
+      cur.execute("SELECT json_build_object ('id_problema', id_problema, 'nombre_problema', nombre_problema, 'descripcion', descripcion, 'resolucion', resolucion) FROM problema ORDER BY id_problema ASC")
       content = cur.fetchall()
     
     if type == 'canciones':
-      cur.execute("SELECT json_build_object ('id_cancion', id_cancion, 'nombre_cancion', nombre_cancion, 'año_salida', año_salida, 'duracion', duracion) FROM canciones")
+      cur.execute("SELECT json_build_object ('id_cancion', id_cancion, 'nombre_cancion', nombre_cancion, 'año_salida', año_salida, 'duracion', duracion, 'generos', string_agg(nombre_genero, ', ')) FROM canciones INNER JOIN canciones_generos USING (id_cancion) INNER JOIN generos USING (id_genero) GROUP BY id_cancion ORDER BY id_cancion ASC")
       content = cur.fetchall()
     
     if type == 'listas_de_canciones':
-      cur.execute("SELECT json_build_object ('id_lista', id_lista, 'nombre_lista', nombre_lista, 'descripcion', descripcion, 'duracion', duracion) FROM listas_de_canciones")
+      cur.execute("SELECT json_build_object ('id_lista', id_lista, 'nombre_lista', nombre_lista, 'descripcion', descripcion, 'duracion', duracion, 'usuarios', usuarios, 'canciones', canciones) FROM  (SELECT id_lista, nombre_lista, descripcion,string_agg(nombre_cancion, ', ') AS canciones FROM listas_de_canciones INNER JOIN lista_canciones_canciones USING (id_lista) INNER JOIN canciones USING (id_cancion) GROUP BY id_lista) as t1 INNER JOIN (SELECT id_lista, duracion, string_agg(nombre, ', ') AS usuarios FROM listas_de_canciones INNER JOIN lista_canciones_usuarios USING (id_lista) INNER JOIN usuarios USING (id_usuario) GROUP BY id_lista) as t2 USING (id_lista) ORDER BY id_lista ASC;")
       content = cur.fetchall()
 
-    if type == 'autores':
-      cur.execute("SELECT json_build_object ('id_autor', id_autor, 'nombre_autor', nombre_autor, 'discografia', discografia) FROM autores")
+    if type == 'grupo':
+      cur.execute("SELECT json_build_object ('id_autor', id_autor, 'nombre_autor', nombre_autor, 'discografia', discografia, 'integrantes', string_agg(nombre_integrante, ', ')) FROM autores INNER JOIN grupo USING (id_autor) GROUP BY id_autor ORDER BY id_autor ASC")
+      content = cur.fetchall()
+
+    if type == 'artista':
+      cur.execute("SELECT json_build_object ('id_autor', id_autor, 'nombre_autor', nombre_autor, 'discografia', discografia, 'integrante', nombre_artista) FROM autores INNER JOIN artista USING (id_autor) ORDER BY id_autor ASC")  
       content = cur.fetchall()
 
     if type == 'albumes':
-      cur.execute("SELECT json_build_object ('id_album', id_album, 'id_autor', id_autor, 'nombre_album', nombre_album, 'año_salida', año_salida, 'duracion', duracion) FROM albumes")
+      cur.execute("SELECT json_build_object ('id_album', id_album, 'id_autor', id_autor, 'nombre_album', nombre_album, 'año_salida', albumes.año_salida, 'duracion', albumes.duracion, 'canciones', string_agg(nombre_cancion, ', ')) FROM albumes INNER JOIN canciones_albumes USING (id_album) INNER JOIN canciones USING (id_cancion) GROUP BY id_album ORDER BY id_album ASC;")
       content = cur.fetchall()
 
     if type == 'generos':
-      cur.execute("SELECT json_build_object ('id_genero', id_genero, 'nombre_genero', nombre_genero) FROM generos")
+      cur.execute("SELECT json_build_object ('id_genero', id_genero, 'nombre_genero', nombre_genero) FROM generos ORDER BY id_genero ASC")
       content = cur.fetchall()
 
     if type == 'comentarios':
-      cur.execute("SELECT json_build_object ('id_comentario', id_comentario, 'id_usuario', id_usuario, 'id_cancion', id_cancion, 'texto_comentario', texto_comentario, 'fecha_comentario', fecha_comentario) FROM comentarios")
+      cur.execute("SELECT json_build_object ('id_comentario', id_comentario, 'id_usuario', id_usuario, 'id_cancion', id_cancion, 'texto_comentario', texto_comentario, 'fecha_comentario', fecha_comentario) FROM comentarios ORDER BY id_comentario ASC")
+      content = cur.fetchall()
+    
+    if type == 'resuelve':
+      cur.execute("SELECT json_build_object ('id_tecnico', id_tecnico, 'id_problema', id_problema, 'id_usuario', id_usuario, 'fecha_incidencia', fecha_incidencia, 'fecha_resolucion', fecha_resolucion, 'resuelto', resuelto) FROM resuelve")
       content = cur.fetchall()
     
     cur.close()
     conn.close()
   return render_template('index.html', content=content)
-
-
-# @app.errorhandler(404)
-# def id_not_found(error):
-#  return render_template("id_not_found.html"), 404
